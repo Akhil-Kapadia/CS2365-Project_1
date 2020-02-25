@@ -27,6 +27,13 @@ Getting Started (1st time):
 I Highly recommend that you learn how git works before following this tutorial. Pushing to github without knowing how branches, commits and what pull requests can mess up the flow of the team.
 Please try and learn how to maintain your own branch instead of always pushing to the master branch.
 
+BRANCHING (Use this when making changes to code that isn't ready to push to you group yet.)
+1.	A branch is basically a copy of the master tree where the central code is. Make a branch for when you're working on code individually. When you're ready we can merge your branch with the groups master branch.
+When naming your branch follow the format of "firstName_issueBeingWorkedOn_versionNunmber" Ie "Akhil_cardNotFound_1"
+Use Command		git branch Akhil_cardNotFound_1
+2.	To go to a branch created (Either yours or a group members)
+Use Command		git checkout Akhil_cardNotFound_1
+
 SAVING YOUR CHANGES:
 (Assuming git's already open in the repo) 
 1.	You'll need to "commit" the changes. What this does is it record the changes you've made. ie old file - new file = changes. This doesn't upload anything though, it just tells git what changes need to be uploaded. 

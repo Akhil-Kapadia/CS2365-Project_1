@@ -27,12 +27,16 @@ Getting Started (1st time):
 I Highly recommend that you learn how git works before following this tutorial. Pushing to github without knowing how branches, commits and what pull requests can mess up the flow of the team.
 Please try and learn how to maintain your own branch instead of always pushing to the master branch.
 
-BRANCHING (Use this when making changes to code that isn't ready to push to you group yet.)
+BRANCHING 
 1.	A branch is basically a copy of the master tree where the central code is. Make a branch for when you're working on code individually. When you're ready we can merge your branch with the groups master branch.
 When naming your branch follow the format of "firstName_issueBeingWorkedOn_versionNunmber" Ie "Akhil_cardNotFound_1"
 Use Command		git branch Akhil_cardNotFound_1
 2.	To go to a branch created (Either yours or a group members)
 Use Command		git checkout Akhil_cardNotFound_1
+
+MERGING YOUR BRANCH TO GROUP MASTER
+After you've pushed to your branch and are ready to merge it with the master code, you'll need to create a pull request. Do this by going to the github website, clicking on your branch.
+The rest is self explanatory, just go through submitting a pull request, and msg Jacob to have him confirm and merge the request.
 
 SAVING YOUR CHANGES:
 (Assuming git's already open in the repo) 

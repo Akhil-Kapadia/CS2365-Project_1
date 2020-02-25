@@ -27,10 +27,6 @@ To start a hand, seven cards are dealt out to each player, and the top card of t
 begin the discard pile. The player to the dealer's left plays first unless the first card on the discard pile is an action or Wild
 card (see below). On a player's turn, he/she must do one of the following:
 
-- play a card matching the discard in color, number or symbol
-- playa Wild card, or a playable Wild Draw Four card (see restriction below)
-- draw the top card of the deck
-
 If a player chooses to draw the top card of the deck, and that card is playable (it matches the discard, or is a playable wild
 card), then the player may (but need not) immediately play that card.
 

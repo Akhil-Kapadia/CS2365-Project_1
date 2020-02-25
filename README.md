@@ -21,14 +21,17 @@ Getting Started (1st time):
 1.	Goto an empty folder (ie "Project Lab 1")
 2.	Right click and select "Git bash Here"
 3.	Enter "git clone https://github.com/Akhil-Kapadia/CS2413-Project_1" (Without "")
-4.	This will create the current repo in a new folder inside your project lab folder. Go ahead and close git, and open the "Project_Lab-1" folder. Right click and open git bash again.
+4.	This will create the current repo in a new folder inside your project lab folder. Go ahead and close git, and open the "CS2413-Project_1" folder. Right click and open git bash again.
 5.	You are now in the shared repo. Edit files here using Vivado or whatever.
+
+I Highly recommend that you learn how git works before following this tutorial. Pushing to github without knowing how branches, commits and what pull requests can mess up the flow of the team.
+Please try and learn how to maintain your own branch instead of always pushing to the master branch.
 
 SAVING YOUR CHANGES:
 (Assuming git's already open in the repo) 
 1.	You'll need to "commit" the changes. What this does is it record the changes you've made. ie old file - new file = changes. This doesn't upload anything though, it just tells git what changes need to be uploaded. 
 MAKE SURE WHEN YOU COMMIT, COMMENT WHAT CHANGES YOU'VE MADE!
-Enter "git commit fileName.type"
+Enter: git commit -m "Changes made here" fileName.type
 You can use "git status" to find out what files you've changed.
 2.	To actually save you changes to github you'll need to "push" the commit you've made. Be prepared, you might need to login in to github.
 Enter "git push"

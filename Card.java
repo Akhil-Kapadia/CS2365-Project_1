@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class Card {
     
+    private int card;
     private ArrayList<Integer> deck;
     
     //getter, returns copy of list
@@ -12,10 +13,30 @@ public class Card {
         return new ArrayList<>(this.deck);
     }
     
-    //setter
+    //get the card
+    //public int getCard(){
+        //return this.card;
+    //}
+    
+    //get the color of the card
+    public int getColor(){
+        return this.card / 100;
+    }
+    
+    //get the number of the card
+    public int getNumber(){
+        return this.card % 100;
+    }
+
+    //setter for deck
     public void setDeck(ArrayList deck){
         this.deck = deck;
     }
+    
+    //setter for card
+    //public void setCard(int card){
+        //this.card = card;
+    //}
     
     //adder, end of deck
     public ArrayList<Integer> addDeck(int card){

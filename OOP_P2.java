@@ -35,11 +35,11 @@ class Game
 {
     
     /*
-        Game class has two methods, StartGame and FormatCardForWorkout
+        Game class has 3 methods, StartGame, FormatCardForWorkout, and GetMaxReps(For mathmatical purpose in Stat collection)
         Requires two other classes to function correctly, Deck and Card
         
         StartGame asks the user how many decks they want,
-        asks the user whether or not to shuffle them all together or not
+        asks the user whether or not to shuffle them all together
         asks the user whether or not they wish to remove Sepcial cards
         
         Proceeds to draw 7 cards, sends them to the FormatCardForWorkout method
@@ -145,7 +145,7 @@ class Game
                     }
                     
                     //Hand has been filled
-                    FormatCardForWorkout(Hand);
+                    FormatCardForWorkout(Hand, Decks[a]);
                     
                     //Will draw a new hand
                     Temp.clear();
@@ -153,6 +153,8 @@ class Game
                     
                 }
             }
+            
+            Decks[a].DisplayStatData();
         }
         
         System.out.println("Game over!!! Hopefully you had a good workout!");
@@ -162,13 +164,15 @@ class Game
     }
     
     
-    void FormatCardForWorkout(ArrayList<Card> H)
+    void FormatCardForWorkout(ArrayList<Card> H, Deck D)
     {
         int RepsSitUps = 0;
         int RepsPushUps = 0;
         int RepsSquat = 0;
         int RepsLounges = 0;
         int Burpees = 0;
+        
+        int SkippedR = 0;
         
         for(int a = 0; a < H.size(); a++)
         {
@@ -213,19 +217,23 @@ class Game
                 {
                     if(Col.equals(("Red")))
                     {
+                        SkippedR += RepsSitUps;
                         RepsSitUps = 0;
                     }
                     else if(Col.equals(("Blue")))
                     {
+                        SkippedR += RepsPushUps;
                         RepsPushUps =0;
                     }
                     else if(Col.equals(("Yellow")))
                     {
+                        SkippedR += RepsSquat;
                         RepsSquat =0;
                     }
                     else
                     {
                         //Green
+                        SkippedR += RepsLounges;
                         RepsLounges = 0;
                     }  
                 }
@@ -286,7 +294,34 @@ class Game
             System.out.println("Do " + Burpees + " reps of Burpees!\n");
         }
         
+        //Stat collection function gets called
+        int TotalR = RepsPushUps + RepsSitUps + RepsSquat + RepsLounges + Burpees;
+        int MaxR = GetMaxReps(RepsPushUps, RepsSitUps, RepsSquat, RepsLounges, Burpees);
+        D.StatCollection(TotalR, SkippedR, MaxR);
         
+    }
+    
+    
+    int GetMaxReps(int Push, int Sit, int L, int Sq, int B)
+    {
+        
+        if(Push > Sit && Push > L && Push > Sq && Push > B)
+        {
+            return Push;
+        }
+        else if(Sit > Push && Sit > L && Sit > Sq && Sit > B)
+        {
+            return Sit;
+        }
+        else if(L > Push && L > Sit && L > Sq && L > B)
+        {
+            return L;
+        }
+        else if( Sq > Push && Sq > Sit && Sq > L && Sq > B)
+        {
+            return Sq;
+        }
+        return B;
     }
             
 }
@@ -296,6 +331,10 @@ class Game
 class Deck
 {
     ArrayList<Card> D = new ArrayList<Card>();
+    
+    int RepsDone = 0;
+    int RepsSkipped = 0;
+    int MaxReps = 0;
     
     public void CreateDeck()
     {
@@ -457,6 +496,25 @@ class Deck
         }
     }
     
+    
+    public void StatCollection(int Reps, int SkippedReps, int MR)
+    {
+        RepsDone += Reps;
+        RepsSkipped += SkippedReps;
+        
+        if(MR > MaxReps)
+        {
+            MaxReps = MR;
+        }
+    }
+    
+    public void DisplayStatData()
+    {
+        System.out.println("---Stats about the decks workout---\n");
+        System.out.println("Total Reps performed - " + RepsDone + "\n");
+        System.out.println("Total Reps Skipped - " + RepsSkipped + "\n");
+        System.out.println("Total Most Reps performed in a hand - " + MaxReps + "\n");
+    }
 
 }
 

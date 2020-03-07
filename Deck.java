@@ -4,11 +4,11 @@ import java.util.*;
 
 class Deck
 {
-    private ArrayList<Card> D = new ArrayList<Card>();
+    ArrayList<Card> D = new ArrayList<Card>();
     
-    private int RepsDone = 0;
-    private int RepsSkipped = 0;
-    private int MaxReps = 0;
+    int RepsDone = 0;
+    int RepsSkipped = 0;
+    int MaxReps = 0;
     
     public void CreateDeck()
     {
@@ -86,6 +86,10 @@ class Deck
         
     }
     
+    public int CardsLeftOnDeck()
+    {
+        return D.size();
+    }
     
     ArrayList<Card> ShuffleDeck(ArrayList<Card> DeckToShuffle)
     {
@@ -182,12 +186,15 @@ class Deck
         }
     }
     
-    public void DisplayStatData()
+    public int[] UDateStatData()
     {
-        System.out.println("---Stats about the decks workout---\n");
-        System.out.println("Total Reps performed - " + RepsDone + "\n");
-        System.out.println("Total Reps Skipped - " + RepsSkipped + "\n");
-        System.out.println("Total Most Reps performed in a hand - " + MaxReps + "\n");
+        int[] Table = new int[3];
+        
+        Table[0] = RepsDone;
+        Table[1] = RepsSkipped;
+        Table[2] = MaxReps;
+        
+        return Table;
     }
 
 }

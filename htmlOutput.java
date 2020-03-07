@@ -85,6 +85,10 @@ public class htmlOutput {
 		return temp;
 	}
 	
+	/**
+	 * 
+	 * @return String
+	 */
 	public String setExerciseHeading()
 	{
 		String temp = "<h2>The total amount of Exercise done this game!</h2>";
@@ -98,10 +102,10 @@ public class htmlOutput {
 	 * @param Exersice
 	 * @return
 	 */
-	public String setExerciseTotal(int total, String Exercise)
+	public String setExerciseTotal(int total, int skipped, String Exercise)
 	{
-		setExerciseHeading();
-		String temp = "<h3>The total " + Exercise + " done is: " + total + "</h3";
+		String temp = "<p>The total " + Exercise + " done is: " + total + "<br>"
+				+ " and has been skipped "+ skipped + " times.</p";
 		Output.add(temp);
 		return temp;
 	}

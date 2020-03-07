@@ -31,7 +31,9 @@ public class htmlOutput {
 	 */
 	public String setCardHeading(int card)
 	{
-		return "<h4>The Card number is" + card + "</h4>\n";
+		String temp = "<h4>The Card number is" + card + "</h4>\n";
+		Output.add(temp);
+		return temp;
 	}
 	
 	/**
@@ -39,16 +41,18 @@ public class htmlOutput {
 	 * Will output html formated description of card properties like action, color
 	 * and exercise.
 	 * 
-	 * @param card
+	 * @param card	The card from which ever deck is called.
+	 * @param Game	Object from whichever deck is called.
 	 * @return String Lengthy paragraph descibing the cards properties. To be 
 	 * used later in ArrayList Output.
 	 */
-	public String setCardDescription(int card)
+	public String setCardDescription(Card obj)
 	{
 		//Split up for easier readability
-		String temp = "<p>The card color is " + obj.getColor(card) + "<br>\n";
-		temp.concat("The card number/action is " + obj.getAction(card) + "<br>\n");
-		temp.concat("The card's exercise is " + obj.getExercise(card) + "</p>\n");
+		String temp = "<p>The card color is " + obj.getColor() + "<br>\n";
+		temp.concat("The card number/action is " + obj.getAction() + "<br>\n");
+		temp.concat("The card's exercise is " + obj.getExercise() + "</p>\n");
+		Output.add(temp);
 		return temp;
 	}
 	
@@ -61,7 +65,9 @@ public class htmlOutput {
 	 */
 	public String setHandHeading(int handCount)
 	{
-		return "<h3>The " + handCount + " hand follows</h3>";
+		String temp = "<h3>The " + handCount + " hand follows</h3>";
+		Output.add(temp);
+		return temp;
 	}
 	
 	/**
@@ -73,26 +79,38 @@ public class htmlOutput {
 	 */
 	public String setHeader()
 	{
-		return "<!DOCTYPE html>\n<html>\n<body>\n" + 
+		String temp = "<!DOCTYPE html>\n<html>\n<body>\n" + 
 				"<h1>UNO Card game with Exercises.WooOOooOOOooOOo</h1>\n"; 
+		Output.add(temp);
+		return temp;
 	}
 	
-	/**
-	 * This method formats an entire hand into html by calling other methods.
-	 * Requires an Arraylist of 7 cards to be input.
-	 * 
-	 * @param hand	ArrayList of cards (Compromised of 7 Cards) which is the hand
-	 * drawn.
-	 * @param handCount	The count of how many hands have been drawn.
-	 */
-	public void setHand(ArrayList <Integer> hand, int handCount)
+	public String setExerciseHeading()
 	{
-		Output.add(setHandHeading(handCount));
-		for (int i : hand)
-		{
-			Output.add(setCardHeading(i));
-			Output.add(setCardDescription(i));
-		}
+		String temp = "<h2>The total amount of Exercise done this game!</h2>";
+		Output.add(temp);
+		return temp;
+	}
+		
+	/**Method will format an html output of the total amount of exercises and 
+	 *  needs to be called near the end of the card game.
+	 * @param total
+	 * @param Exersice
+	 * @return
+	 */
+	public String setExerciseTotal(int total, String Exercise)
+	{
+		setExerciseHeading();
+		String temp = "<h3>The total " + Exercise + " done is: " + total + "</h3";
+		Output.add(temp);
+		return temp;
+	}
+	
+	public String setCardsLeft(int count)
+	{
+		String temp = "<h2>Cards left in the deck right now:" + count;
+		Output.add(temp);
+		return temp;
 	}
 	
 	/**
@@ -101,13 +119,17 @@ public class htmlOutput {
 	 */
 	public String setEnding()
 	{
-		return "</body>/n";
+		String temp = "</body>/n";
+		Output.add(temp);
+		return temp;
 	}
 	
 	/**
 	 * This method can only be called after the end of User interaction and should
 	 * be the final step to completing the program.
 	 * Program will output html coded output to an html file.
+	 * 
+	 * @exception IOException If file could not be writ.
 	 */
 	public void writeToFile()
 	{

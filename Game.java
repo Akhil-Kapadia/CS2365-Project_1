@@ -28,23 +28,22 @@ class Game
     
     */
     
-    public void StartGame()
+
+    public void StartGame(int Pick1, int Pick2, int Pick3)
     {
         Scanner input = new Scanner(System.in);
-        System.out.println("How many decks do you wish to start with? 1, 2 , or 3???");
-        int Pick = input.nextInt();
         
-        if(Pick > 3)
+        if(Pick1 > 3)
         {
-            Pick = 3;
+            Pick1 = 3;
         }
-        else if(Pick <= 0)
+        else if(Pick1 <= 0)
         {
-            Pick = 1;
+            Pick1 = 1;
         }
         
         //filling the Decks
-        Deck[] Decks = new Deck[Pick];
+        Deck[] Decks = new Deck[Pick1];
         
        for(int a = 0; a < Decks.length; a++)
        {
@@ -52,11 +51,8 @@ class Game
            Decks[a].CreateDeck();
        }
         
-        System.out.println("Do you wish to shuffle the decks together? 1 for Yes, 2 for No \n");
-        Pick = input.nextInt();
-        
         //shuffling all the decks together
-        if(Pick == 1 && Decks.length > 1)
+        if(Pick2 == 1 && Decks.length > 1)
         {
             ArrayList<Card> All = new ArrayList<Card>();
             for(int a = 0; a < Decks.length; a++)
@@ -89,9 +85,7 @@ class Game
         }
         
         //The Player can then choose to remove special cards!!!
-        System.out.println("Do you wish to remove special cards??? 1 for Yes, 2 for No \n");
-        Pick = input.nextInt();
-        if(Pick == 1)
+        if(Pick3 == 1)
         {
             for(int a = 0; a < Decks.length; a++)
             {

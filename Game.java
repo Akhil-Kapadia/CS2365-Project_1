@@ -28,11 +28,10 @@ class Game
     
     */
     
+
     public void StartGame(int Pick1, int Pick2, int Pick3)
     {
         Scanner input = new Scanner(System.in);
-        //System.out.println("How many decks do you wish to start with? 1, 2 , or 3???");
-        //int Pick = input.nextInt();
         
         if(Pick1 > 3)
         {
@@ -51,9 +50,6 @@ class Game
            Decks[a] = new Deck();
            Decks[a].CreateDeck();
        }
-        
-        //System.out.println("Do you wish to shuffle the decks together? 1 for Yes, 2 for No \n");
-        //Pick = input.nextInt();
         
         //shuffling all the decks together
         if(Pick2 == 1 && Decks.length > 1)
@@ -89,8 +85,6 @@ class Game
         }
         
         //The Player can then choose to remove special cards!!!
-        //System.out.println("Do you wish to remove special cards??? 1 for Yes, 2 for No \n");
-        //Pick = input.nextInt();
         if(Pick3 == 1)
         {
             for(int a = 0; a < Decks.length; a++)

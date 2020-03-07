@@ -2,9 +2,9 @@ package cs2365_project2;
 
 class Card
 {   
-    private int Value;
-    private String Color;
-    private String isSpecial;
+   int Value;
+    String Color;
+    String isSpecial;
     boolean Special;
     
     public Card(int V, String C, String SPEC)
@@ -53,13 +53,57 @@ class Card
         }
     }
     
+    
     public String getCardData()
     {
         //for testing
         return "Value - " + Value + " | Color - " + Color + " | SpecialType??? - " + isSpecial + "\n";
     }
     
-    //addded by Jacob
+    
+    public String getColor()
+    {
+        return Color;
+    }
+    
+    
+    public String getAction()
+    {
+        if(Special)
+        {
+            return isSpecial;
+        }
+        else
+        {
+            return Value+"";
+        }
+    }
+    
+    
+    public String getExercise()
+    {
+        if(Color.equals("Red"))
+        {
+           return "Sit Ups"; 
+        }
+        else if(Color.equals(("Blue")))
+        {
+            return "Push ups";
+        }
+        else if(Color.equals("Yellow"))
+        {
+            return "Squat";
+        }
+        else if(Color.equals(("Green")))
+        {
+            return "Lounges";
+        }
+        else
+        {
+            return "";
+        }
+        
+    }
     public String getCardOutput()
     {
         if(Special)

@@ -55,8 +55,17 @@ class Game
     
     */
     
+    
+    //FOR STAT COLLECTION--> 
+        
+    int[] StatsWorkout = new int[3];
+    int[] WorkoutReps = new int[5];
+    //---
+    
     public void StartGame()
     {
+        
+        
         Scanner input = new Scanner(System.in);
         System.out.println("How many decks do you wish to start with? 1, 2 , or 3???");
         int Pick = input.nextInt();
@@ -139,6 +148,9 @@ class Game
                 {
                     ArrayList<Card> Temp = Decks[a].DrawCards(7);
                     
+                    //function to sort the hand and display the data
+                    SortingHand(Temp);
+                    
                     for(int b = 0; b < Temp.size(); b++)
                     {
                         Hand.add(Temp.get(b));
@@ -152,10 +164,24 @@ class Game
                     Hand.clear();
                     
                 }
+                
+                //Number of Cards Left3
+                
+            
+            int RemainingCards = Decks[a].CardsLeftOnDeck() + (108 * ( Decks.length - (a+1)));
+            
+            System.out.println("Cards left to draw from - " + RemainingCards + "\n");
+                
             }
             
-            Decks[a].DisplayStatData();
+            
+            
         }
+        
+        
+        
+        //Display Stat Data
+        DisplayStatData(StatsWorkout, WorkoutReps);
         
         System.out.println("Game over!!! Hopefully you had a good workout!");
         
@@ -295,12 +321,114 @@ class Game
         }
         
         //Stat collection function gets called
+        WorkoutReps[0] += RepsPushUps;
+        WorkoutReps[1] += RepsSitUps;
+        WorkoutReps[2] += RepsSquat;
+        WorkoutReps[3] += RepsLounges;
+        WorkoutReps[4] += Burpees;
         int TotalR = RepsPushUps + RepsSitUps + RepsSquat + RepsLounges + Burpees;
         int MaxR = GetMaxReps(RepsPushUps, RepsSitUps, RepsSquat, RepsLounges, Burpees);
+        
         D.StatCollection(TotalR, SkippedR, MaxR);
+        
+        UpdateStatsTable(D.UDateStatData());
         
     }
     
+    void UpdateStatsTable(int[] Stats)
+    {
+        StatsWorkout[0] += Stats[0];
+        StatsWorkout[1] += Stats[1];
+        
+        if(StatsWorkout[2] < Stats[2])
+        {
+            StatsWorkout[2] = Stats[2];
+        }
+        
+    }
+    
+    
+    void DisplayStatData(int[] TotalStats, int[] IndStats)
+    {
+        System.out.println("Total Reps - " + TotalStats[0] + "\n");
+        System.out.println("Total Skipped Reps - " + TotalStats[1] + "\n");
+        System.out.println("Max Reps performed - " + TotalStats[2] + "\n");
+        
+        System.out.println("Total Pushups - " + IndStats[0] + "\n");
+        System.out.println("Total Situps - " + IndStats[1] + "\n");
+        System.out.println("Total Squats - " + IndStats[2] + "\n");
+        System.out.println("Total Lounges - " + IndStats[3] + "\n");
+        System.out.println("Total Burpees - " + IndStats[4] + "\n");
+    }
+            
+    
+    void SortingHand(ArrayList<Card> H)
+    {
+        ArrayList<Card> Special = new ArrayList<Card>();
+        ArrayList<Card> Red = new ArrayList<Card>();
+        ArrayList<Card> Blue = new ArrayList<Card>();
+        ArrayList<Card> Yellow = new ArrayList<Card>();
+        ArrayList<Card> Green = new ArrayList<Card>();
+        
+        for(int a = 0; a < H.size(); a++)
+        {
+            String C = H.get(a).getString(true);
+            
+            if(C.equals("Red"))
+            {
+                Red.add(H.get(a));
+            }
+            else if(C.equals("Blue"))
+            {
+                Blue.add(H.get(a));
+            }
+            else if(C.equals("Yellow"))
+            {
+                Yellow.add(H.get(a));
+            }
+            else if(C.equals("Green"))
+            {
+                Green.add(H.get(a));
+            }
+            else
+            {
+                Special.add(H.get(a));
+            }
+
+        }
+        
+        //sort them
+        
+        Red = SortByRank(Red);
+        Blue = SortByRank(Blue);
+        Yellow = SortByRank(Yellow);
+        Green = SortByRank(Green);
+        
+        //run display method here!!!
+        
+        System.out.println("Reds - " + Red.size() + " Blues - " + Blue.size() + " Greens - " + Green.size() + " Yellows - " + Yellow.size() + " Special Types - " + Special.size() + "\n");
+        
+    }
+    
+    
+    
+    ArrayList<Card> SortByRank(ArrayList<Card> HandCol)
+    {
+        for(int j = 0; j < HandCol.size()-1; j++)
+        {
+		for (int i = 0; i < HandCol.size()-1; i++)
+        	{
+            		if (HandCol.get(i).getValue() > HandCol.get(i+1).getValue())
+            		{
+                		Card PlaceHolder = HandCol.get(i+1);
+                		HandCol.set(i+1, HandCol.get(i));
+               			HandCol.set(i, PlaceHolder);
+            		}
+        	}
+        }
+        
+        return HandCol;
+    }
     
     int GetMaxReps(int Push, int Sit, int L, int Sq, int B)
     {
@@ -412,6 +540,10 @@ class Deck
         
     }
     
+    public int CardsLeftOnDeck()
+    {
+        return D.size();
+    }
     
     ArrayList<Card> ShuffleDeck(ArrayList<Card> DeckToShuffle)
     {
@@ -508,12 +640,15 @@ class Deck
         }
     }
     
-    public void DisplayStatData()
+    public int[] UDateStatData()
     {
-        System.out.println("---Stats about the decks workout---\n");
-        System.out.println("Total Reps performed - " + RepsDone + "\n");
-        System.out.println("Total Reps Skipped - " + RepsSkipped + "\n");
-        System.out.println("Total Most Reps performed in a hand - " + MaxReps + "\n");
+        int[] Table = new int[3];
+        
+        Table[0] = RepsDone;
+        Table[1] = RepsSkipped;
+        Table[2] = MaxReps;
+        
+        return Table;
     }
 
 }
@@ -577,5 +712,50 @@ class Card
     {
         //for testing
         return "Value - " + Value + " | Color - " + Color + " | SpecialType??? - " + isSpecial + "\n";
+    }
+    
+    
+    public String getColor()
+    {
+        return Color;
+    }
+    
+    
+    public String getAction()
+    {
+        if(Special)
+        {
+            return isSpecial;
+        }
+        else
+        {
+            return Value+"";
+        }
+    }
+    
+    
+    public String getExercise()
+    {
+        if(Color.equals("Red"))
+        {
+           return "Sit Ups"; 
+        }
+        else if(Color.equals(("Blue")))
+        {
+            return "Push ups";
+        }
+        else if(Color.equals("Yellow"))
+        {
+            return "Squat";
+        }
+        else if(Color.equals(("Green")))
+        {
+            return "Lounges";
+        }
+        else
+        {
+            return "";
+        }
+        
     }
 }

@@ -4,11 +4,11 @@ import java.util.*;
 
 class Deck
 {
-    ArrayList<Card> D = new ArrayList<Card>();
+    private ArrayList<Card> D = new ArrayList<Card>();
     
-    int RepsDone = 0;
-    int RepsSkipped = 0;
-    int MaxReps = 0;
+    private int RepsDone = 0;
+    private int RepsSkipped = 0;
+    private int MaxReps = 0;
     
     public void CreateDeck()
     {

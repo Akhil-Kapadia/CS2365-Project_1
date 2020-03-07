@@ -324,14 +324,13 @@ class Game
         //sort by rank
         for(int b = 0; b < H.size()-1; b++)
         {
-            if(H.get(b).getValue() > H.get(b+1).getValue())
+            if(H.get(b).getValue() > H.get(b+1).getValue() && H.get(b).getString(true).equals(H.get(b+1).getString(true)))
             {
                 Collections.swap(H, b, b+1);
                 b = 0;
             }
         }
         
-
         return H;
     }
             

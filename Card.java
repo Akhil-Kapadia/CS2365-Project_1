@@ -2,9 +2,9 @@ package cs2365_project2;
 
 class Card
 {   
-    int Value;
-    String Color;
-    String isSpecial;
+    private int Value;
+    private String Color;
+    private String isSpecial;
     boolean Special;
     
     public Card(int V, String C, String SPEC)
@@ -52,7 +52,6 @@ class Card
             }
         }
     }
-    
     
     public String getCardData()
     {

@@ -1,5 +1,6 @@
-package uno;
+package cs2365_project2;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class htmlOutput {
 	 * This method given the count of Hands drawn will create a heading for the 
 	 * new segment to follow it.
 	 * 
-	 * @param handCount
+	 * @param handCount	Which iteration of hand drawn is this?
 	 * @return	String Creates tertiary heading of the hand count.
 	 */
 	public String setHandHeading(int handCount)
@@ -86,7 +87,7 @@ public class htmlOutput {
 	}
 	
 	/**
-	 * 
+	 * Just makes a heading for talking about the heading.
 	 * @return String
 	 */
 	public String setExerciseHeading()
@@ -97,22 +98,50 @@ public class htmlOutput {
 	}
 		
 	/**Method will format an html output of the total amount of exercises and 
-	 *  needs to be called near the end of the card game.
-	 * @param total
-	 * @param Exersice
-	 * @return
+	 *  needs to be called near the end of the card game. 
+	 * @param total		Total amount of exercise done.
+	 * @param Exersice	String. Which exercise it is.
+	 * @return	String
 	 */
-	public String setExerciseTotal(int total, int skipped, String Exercise)
+	public String setExerciseTotal(int total, int skipped, String exercise)
 	{
-		String temp = "<p>The total " + Exercise + " done is: " + total + "<br>"
+		String temp = "<p>The total " + exercise + " done is: " + total + "<br>"
 				+ " and has been skipped "+ skipped + " times.</p";
 		Output.add(temp);
 		return temp;
 	}
 	
+	/**
+	 * Method will format into html the largest quantity of exercise done in a 
+	 * single hand.
+	 * @param max	Should be the largest number of reps for an exercise.
+	 * @param exercise	WHich exersise it was.
+	 * @return String
+	 */
+	public String setMaxHandReps(int max, String exercise)
+	{
+		String temp = "<h3> The most exercise done is " + exercise + " by "
+				+ max + "</h3>";
+		Output.add(temp);
+		return temp;
+	}
+	
+	/**
+	 * 
+	 * @param count	Int valus of cards left in deck.
+	 * @return String
+	 */
 	public String setCardsLeft(int count)
 	{
 		String temp = "<h2>Cards left in the deck right now:" + count;
+		Output.add(temp);
+		return temp;
+	}
+	
+	public String setGameEnd()
+	{
+		String temp = "<h2>The Game Has Concluded. Following are the leftover cards"
+				+ " in the deck and then the overall statistics for the game!</h2>";
 		Output.add(temp);
 		return temp;
 	}
@@ -137,6 +166,8 @@ public class htmlOutput {
 	 */
 	public void writeToFile()
 	{
+		setEnding();
+		createFile();
 		try {
 		      FileWriter myWriter = new FileWriter("htmlOutput.html");
 		      for (String s : Output)
@@ -149,11 +180,22 @@ public class htmlOutput {
 		    }
 	}
 	
-	//Constructor
-	public htmlOutput()
+	/**
+	 * Creates an empty html file for output.
+	 */
+	private void createFile()
 	{
-		Output.add(setHeader());
-		
+		try {
+	      File myObj = new File("htmlOutput.html");
+	      if (myObj.createNewFile()) {
+	        System.out.println("File created: " + myObj.getName());
+	      } else {
+	        System.out.println("File already exists.");
+	      }
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
 	}
 	
 }

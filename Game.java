@@ -34,7 +34,7 @@ class Game
     int[] StatsWorkout = new int[3];
     int[] WorkoutReps = new int[5];
     int[] skippedR = new int[4];
-    //---
+
 
    htmlOutput html = new htmlOutput();
     public void StartGame(int Pick1, int Pick2, int Pick3)

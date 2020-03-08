@@ -31,12 +31,15 @@ class Game
     
     //FOR STAT COLLECTION--> 
         
-    private int[] StatsWorkout = new int[3];
-    private int[] WorkoutReps = new int[5];
-    //---
-    
+    int[] StatsWorkout = new int[3];
+    int[] WorkoutReps = new int[5];
+    int[] skippedR = new int[4];
+
+
+   htmlOutput html = new htmlOutput();
     public void StartGame(int Pick1, int Pick2, int Pick3)
     {      
+    	
         if(Pick1 > 3)
         {
             Pick1 = 3;
@@ -98,12 +101,11 @@ class Game
         }
         
         //Let the game begin!
-        
+        int count = 1;
         ArrayList<Card> Hand = new ArrayList<Card>();
         for(int a = 0; a  < Decks.length; a++)
         {
             Hand.clear();
-            
             while(!Decks[a].isEmpty())
             {
                 if(Hand.size() == 0)
@@ -111,8 +113,10 @@ class Game
                     ArrayList<Card> Temp = Decks[a].DrawCards(7);
                     
                     //function to sort the hand and display the data
+                    html.setHandHeading(count);
+                    count++;
                     SortingHand(Temp);
-                    
+
                     for(int b = 0; b < Temp.size(); b++)
                     {
                         Hand.add(Temp.get(b));
@@ -130,15 +134,15 @@ class Game
                 //Number of Cards Left3
                 
             int RemainingCards = Decks[a].CardsLeftOnDeck() + (108 * ( Decks.length - (a+1)));
-            
+            html.setCardsLeft(RemainingCards);
             System.out.println("Cards left to draw from - " + RemainingCards + "\n");
                 
             }
         }
         
         //Display Stat Data
-        DisplayStatData(StatsWorkout, WorkoutReps);
-        
+        DisplayStatData(StatsWorkout, WorkoutReps, skippedR);
+        html.writeToFile();
         System.out.println("Game over!!! Hopefully you had a good workout!");
     }
     
@@ -151,7 +155,6 @@ class Game
         int RepsLounges = 0;
         int Burpees = 0;
         
-        int SkippedR = 0;
         
         for(int a = 0; a < H.size(); a++)
         {
@@ -196,23 +199,23 @@ class Game
                 {
                     if(Col.equals(("Red")))
                     {
-                        SkippedR += RepsSitUps;
+                        skippedR[0] += RepsSitUps;
                         RepsSitUps = 0;
                     }
                     else if(Col.equals(("Blue")))
                     {
-                        SkippedR += RepsPushUps;
+                        skippedR[1] += RepsPushUps;
                         RepsPushUps =0;
                     }
                     else if(Col.equals(("Yellow")))
                     {
-                        SkippedR += RepsSquat;
+                        skippedR[2] += RepsSquat;
                         RepsSquat =0;
                     }
                     else
                     {
                         //Green
-                        SkippedR += RepsLounges;
+                        skippedR[3] += RepsLounges;
                         RepsLounges = 0;
                     }  
                 }
@@ -284,7 +287,7 @@ class Game
         int TotalR = RepsPushUps + RepsSitUps + RepsSquat + RepsLounges + Burpees;
         int MaxR = GetMaxReps(RepsPushUps, RepsSitUps, RepsSquat, RepsLounges, Burpees);
         
-        D.StatCollection(TotalR, SkippedR, MaxR);
+        D.StatCollection(TotalR, 0, MaxR);
         
         UpdateStatsTable(D.UDateStatData());
         
@@ -303,8 +306,9 @@ class Game
     }
     
     
-    void DisplayStatData(int[] TotalStats, int[] IndStats)
+    void DisplayStatData(int[] TotalStats, int[] IndStats, int[] skipped)
     {
+    	html.setExerciseHeading();
         System.out.println("---Workout Stats---");
         
         System.out.println("Total Reps - " + TotalStats[0]);
@@ -312,10 +316,15 @@ class Game
         System.out.println("Max Reps performed - " + TotalStats[2] + "\n");
         
         System.out.println("Total Pushups - " + IndStats[0]);
+        html.setExerciseTotal(IndStats[0], skipped[0], "Pushups");
         System.out.println("Total Situps - " + IndStats[1]);
+        html.setExerciseTotal(IndStats[1], skipped[1], "Situps");
         System.out.println("Total Squats - " + IndStats[2]);
+        html.setExerciseTotal(IndStats[2], skipped[2], "Squats");
         System.out.println("Total Lounges - " + IndStats[3]);
+        html.setExerciseTotal(IndStats[3], skipped[3], "Lunges");
         System.out.println("Total Burpees - " + IndStats[4] + "\n");
+        html.setExerciseTotal(IndStats[4], 0 , "Burpees");
     }
             
     
@@ -364,19 +373,29 @@ class Game
         System.out.println("-----New Hand-----");
         
         for(Card red1: Red)
+        {
+        	html.setCardDescription(red1);
             System.out.print(red1.getCardOutput() + ", ");
-        
+        }
         for(Card blue1: Blue)
+        {
+        	html.setCardDescription(blue1);
             System.out.print(blue1.getCardOutput() + ", ");
-        
+        }
         for(Card yellow1: Yellow)
+        {
+        	html.setCardDescription(yellow1);
             System.out.print(yellow1.getCardOutput() + ", ");
-        
+        }
         for(Card green1: Green)
+        {
+        	html.setCardDescription(green1);
             System.out.print(green1.getCardOutput() + ", ");
-        
-        for(Card wild1: Wild)
+        }
+        for(Card wild1: Wild) {
+        	html.setCardDescription(wild1);
             System.out.print(wild1.getCardOutput() + ", ");
+        }
         
         System.out.println();
         
@@ -407,20 +426,25 @@ class Game
         
         if(Push > Sit && Push > L && Push > Sq && Push > B)
         {
+        	html.setMaxHandReps(Push, "PushUps");
             return Push;
         }
         else if(Sit > Push && Sit > L && Sit > Sq && Sit > B)
         {
+        	html.setMaxHandReps(Sit, "Situps");
             return Sit;
         }
         else if(L > Push && L > Sit && L > Sq && L > B)
         {
+        	html.setMaxHandReps(L, "Lunges");
             return L;
         }
         else if( Sq > Push && Sq > Sit && Sq > L && Sq > B)
         {
+        	html.setMaxHandReps(Sq, "Squats");
             return Sq;
         }
+        html.setMaxHandReps(B, "Burpees");
         return B;
     }
 }

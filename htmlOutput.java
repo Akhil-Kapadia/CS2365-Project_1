@@ -1,5 +1,6 @@
 package cs2365_project2;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class htmlOutput {
 
-	private ArrayList<String> Output;
+	ArrayList<String> Output = new ArrayList<String>();
 	
 
 	/**
@@ -49,9 +50,9 @@ public class htmlOutput {
 	public String setCardDescription(Card obj)
 	{
 		//Split up for easier readability
-		String temp = "<p>The card color is " + obj.getColor() + "<br>\n";
-		temp.concat("The card number/action is " + obj.getAction() + "<br>\n");
-		temp.concat("The card's exercise is " + obj.getExercise() + "</p>\n");
+		String temp = "<p>The card color is " + obj.getColor() + "<br>\n" 
+				+ "The card number/action is " + obj.getAction() + "<br>\n" 
+				+ "The card's exercise is " + obj.getExercise() + "</p>\n";
 		Output.add(temp);
 		return temp;
 	}
@@ -60,7 +61,7 @@ public class htmlOutput {
 	 * This method given the count of Hands drawn will create a heading for the 
 	 * new segment to follow it.
 	 * 
-	 * @param handCount
+	 * @param handCount	Which iteration of hand drawn is this?
 	 * @return	String Creates tertiary heading of the hand count.
 	 */
 	public String setHandHeading(int handCount)
@@ -85,6 +86,10 @@ public class htmlOutput {
 		return temp;
 	}
 	
+	/**
+	 * Just makes a heading for talking about the heading.
+	 * @return String
+	 */
 	public String setExerciseHeading()
 	{
 		String temp = "<h2>The total amount of Exercise done this game!</h2>";
@@ -93,22 +98,50 @@ public class htmlOutput {
 	}
 		
 	/**Method will format an html output of the total amount of exercises and 
-	 *  needs to be called near the end of the card game.
-	 * @param total
-	 * @param Exersice
-	 * @return
+	 *  needs to be called near the end of the card game. 
+	 * @param total		Total amount of exercise done.
+	 * @param Exersice	String. Which exercise it is.
+	 * @return	String
 	 */
-	public String setExerciseTotal(int total, String Exercise)
+	public String setExerciseTotal(int total, int skipped, String exercise)
 	{
-		setExerciseHeading();
-		String temp = "<h3>The total " + Exercise + " done is: " + total + "</h3";
+		String temp = "<p>The total " + exercise + " done is: " + total + "<br>"
+				+ " and has been skipped "+ skipped + " times.</p";
 		Output.add(temp);
 		return temp;
 	}
 	
+	/**
+	 * Method will format into html the largest quantity of exercise done in a 
+	 * single hand.
+	 * @param max	Should be the largest number of reps for an exercise.
+	 * @param exercise	WHich exersise it was.
+	 * @return String
+	 */
+	public String setMaxHandReps(int max, String exercise)
+	{
+		String temp = "<h3> The most exercise done is " + exercise + " by "
+				+ max + "</h3>";
+		Output.add(temp);
+		return temp;
+	}
+	
+	/**
+	 * 
+	 * @param count	Int valus of cards left in deck.
+	 * @return String
+	 */
 	public String setCardsLeft(int count)
 	{
-		String temp = "<h2>Cards left in the deck right now:" + count;
+		String temp = "<h3>Cards left in the deck right now:" + count + "</h3>";
+		Output.add(temp);
+		return temp;
+	}
+	
+	public String setGameEnd()
+	{
+		String temp = "<h2>The Game Has Concluded. Following are the leftover cards"
+				+ " in the deck and then the overall statistics for the game!</h2>";
 		Output.add(temp);
 		return temp;
 	}
@@ -133,6 +166,8 @@ public class htmlOutput {
 	 */
 	public void writeToFile()
 	{
+		setEnding();
+		createFile();
 		try {
 		      FileWriter myWriter = new FileWriter("htmlOutput.html");
 		      for (String s : Output)
@@ -145,11 +180,27 @@ public class htmlOutput {
 		    }
 	}
 	
-	//Constructor
+	/**
+	 * Creates an empty html file for output.
+	 */
+	private void createFile()
+	{
+		try {
+	      File myObj = new File("htmlOutput.html");
+	      if (myObj.createNewFile()) {
+	        System.out.println("File created: " + myObj.getName());
+	      } else {
+	        System.out.println("File already exists.");
+	      }
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
+	}
+	
 	public htmlOutput()
 	{
-		Output.add(setHeader());
-		
+		setHeader();
 	}
 	
 }

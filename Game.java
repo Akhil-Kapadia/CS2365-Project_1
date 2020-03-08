@@ -33,10 +33,10 @@ class Game
         
     int[] StatsWorkout = new int[3];
     int[] WorkoutReps = new int[5];
-    int[] skippedR = new int[3];
+    int[] skippedR = new int[4];
     //---
 
-    htmlOutput html = new htmlOutput();
+   htmlOutput html = new htmlOutput();
     public void StartGame(int Pick1, int Pick2, int Pick3)
     {      
     	
@@ -101,12 +101,11 @@ class Game
         }
         
         //Let the game begin!
-        
+        int count = 1;
         ArrayList<Card> Hand = new ArrayList<Card>();
         for(int a = 0; a  < Decks.length; a++)
         {
             Hand.clear();
-            html.setHandHeading(a);
             while(!Decks[a].isEmpty())
             {
                 if(Hand.size() == 0)
@@ -114,8 +113,10 @@ class Game
                     ArrayList<Card> Temp = Decks[a].DrawCards(7);
                     
                     //function to sort the hand and display the data
+                    html.setHandHeading(count);
+                    count++;
                     SortingHand(Temp);
-                    
+
                     for(int b = 0; b < Temp.size(); b++)
                     {
                         Hand.add(Temp.get(b));

@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class htmlOutput {
 
-	private ArrayList<String> Output;
+	ArrayList<String> Output = new ArrayList<String>();
 	
 
 	/**
@@ -50,9 +50,9 @@ public class htmlOutput {
 	public String setCardDescription(Card obj)
 	{
 		//Split up for easier readability
-		String temp = "<p>The card color is " + obj.getColor() + "<br>\n";
-		temp.concat("The card number/action is " + obj.getAction() + "<br>\n");
-		temp.concat("The card's exercise is " + obj.getExercise() + "</p>\n");
+		String temp = "<p>The card color is " + obj.getColor() + "<br>\n" 
+				+ "The card number/action is " + obj.getAction() + "<br>\n" 
+				+ "The card's exercise is " + obj.getExercise() + "</p>\n";
 		Output.add(temp);
 		return temp;
 	}
@@ -133,7 +133,7 @@ public class htmlOutput {
 	 */
 	public String setCardsLeft(int count)
 	{
-		String temp = "<h2>Cards left in the deck right now:" + count;
+		String temp = "<h3>Cards left in the deck right now:" + count + "</h3>";
 		Output.add(temp);
 		return temp;
 	}
@@ -196,6 +196,11 @@ public class htmlOutput {
 	      System.out.println("An error occurred.");
 	      e.printStackTrace();
 	    }
+	}
+	
+	public htmlOutput()
+	{
+		setHeader();
 	}
 	
 }

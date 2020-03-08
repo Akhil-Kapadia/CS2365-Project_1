@@ -31,8 +31,8 @@ class Game
     
     //FOR STAT COLLECTION--> 
         
-    int[] StatsWorkout = new int[3];
-    int[] WorkoutReps = new int[5];
+    private int[] StatsWorkout = new int[3];
+    private int[] WorkoutReps = new int[5];
     //---
     
     public void StartGame(int Pick1, int Pick2, int Pick3)

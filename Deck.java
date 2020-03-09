@@ -2,6 +2,14 @@ package cs2365_project2;
 
 import java.util.*;
 
+/**
+     * Deck class holds up to 108 cards that it creates and stores in an ArrayList.
+     * Function can shuffle the deck, refill the deck for the use of combining multiple Decks
+     * Delete all special cards, check if the deck is empty, and it draws hands for the player.
+     * Also has several stat collection functions that will store data for each deck
+     * 
+     * @author Colin Morrison
+     */
 class Deck
 {
     private ArrayList<Card> D = new ArrayList<Card>();
@@ -10,6 +18,10 @@ class Deck
     private int RepsSkipped = 0;
     private int MaxReps = 0;
     
+      /**
+     * Function creates a new deck of uno cards with given color, rank, and/or special types
+     * Adds the newly created Card object and stores it in an ArrayList
+     */
     public void CreateDeck()
     {
         for(int a = 0; a < 4; a++)
@@ -86,17 +98,35 @@ class Deck
         
     }
     
+    /**
+     * Simply gets the amount of Cards left on the deck, which is just the size of the Deck ArrayList
+     * returns the size
+     * @return
+     */
     public int CardsLeftOnDeck()
     {
         return D.size();
     }
     
+    /**
+     * Function will randomly shuffle the ArrayList of Cards using Collections.Shuffle
+     * returns a shuffled ArrayList of Cards
+     * @param DeckToShuffle
+     * @return
+     */
     ArrayList<Card> ShuffleDeck(ArrayList<Card> DeckToShuffle)
     {
         Collections.shuffle(DeckToShuffle);
         return DeckToShuffle;
     }
     
+    /**
+     * Function takes 7 or less cards from the deck List, and returns them as a Hand, while
+     * also removing the cards drawn from the List in the Deck
+     * returns ArrayList of Cards
+     * @param Amount
+     * @return
+     */
     public ArrayList<Card> DrawCards(int Amount)
     {
         ArrayList<Card> DealOut = new ArrayList<Card>();
@@ -134,11 +164,20 @@ class Deck
         return DealOut;
     }
     
+    /**
+     * Getter method that returns the deck in the class
+     * returns ArrayList of Cards
+     * @return
+     */
     public ArrayList<Card> GetDeck()
     {
         return D;
     }
     
+    /**
+     * Function that Refills the Deck of Cards List, with a new Deck of Cards that was passed in
+     * @param NewDeck
+     */
     public void RefillDeck(ArrayList<Card> NewDeck)
     {
         D.clear();
@@ -149,7 +188,9 @@ class Deck
         }
     }
     
-    
+    /**
+     * If the user wants, this function goes through the Deck of Cards list and removes any special Cards
+     */
     public void RemoveSpecialCards()
     {
         for(int a = 0; a < D.size(); a++)
@@ -162,6 +203,11 @@ class Deck
         }
     }
     
+      /**
+     * Function checks if the size of the Deck of Cards list is greater than 0
+     * returns a boolean if the List if size 0 or not
+     * @return
+     */
     public boolean isEmpty()
     {
         if(D.size() <= 0)
@@ -174,7 +220,12 @@ class Deck
         }
     }
     
-    
+     /**
+     * Function used for Stat Collection, each param passed gets added to global variables
+     * @param Reps
+     * @param SkippedReps
+     * @param MR
+     */
     public void StatCollection(int Reps, int SkippedReps, int MR)
     {
         RepsDone += Reps;
@@ -186,6 +237,11 @@ class Deck
         }
     }
     
+     /**
+     * Function takes all the stat data within the deck and puts them into an array of int's
+     * returns an array of ints
+     * @return
+     */
     public int[] UDateStatData()
     {
         int[] Table = new int[3];

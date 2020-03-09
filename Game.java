@@ -3,32 +3,30 @@ package cs2365_project2;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class Game
-{
-    
-        
-    /*
-        Game class has 3 methods, StartGame, FormatCardForWorkout, and GetMaxReps(For mathmatical purpose in Stat collection)
+/**
+        Game class has 3 methods, StartGame, FormatCardForWorkout, and GetMaxReps(For mathematical purpose in Stat collection)
         Requires two other classes to function correctly, Deck and Card
-        
+       
         StartGame asks the user how many decks they want,
         asks the user whether or not to shuffle them all together
-        asks the user whether or not they wish to remove Sepcial cards
-        
+        asks the user whether or not they wish to remove Special cards
+       
         Proceeds to draw 7 cards, sends them to the FormatCardForWorkout method
-        
+       
         In the FormatCardForWorkout method, it counts the amount of reps of each workout
-        then takes into account the special cards and proceeds to do the functions 
+        then takes into account the special cards and proceeds to do the functions
         listed in the project 2 document on blackboard
-    
-        Then the output is displayed per excersise in the console
-    
+   
+        Then the output is displayed per exercise in the console
+   
         Then we jump back to the StartGame method and it proceeds to repeat this process
         until all the Decks have been used
-    
-    */
-    
-    
+        
+        * @author Demetrios Mihaltses
+   
+    **/
+class Game
+{
     //FOR STAT COLLECTION--> 
         
     int[] StatsWorkout = new int[3];
@@ -37,6 +35,12 @@ class Game
 
 
    htmlOutput html = new htmlOutput();
+       
+   /**
+        Main function that Starts and runs through the game.
+        * Goes through all the decks and changes decks when no more cards can be drawn from it
+   
+    */
     public void StartGame(int Pick1, int Pick2, int Pick3)
     {      
     	
@@ -146,7 +150,12 @@ class Game
         System.out.println("Game over!!! Hopefully you had a good workout!");
     }
     
-    
+    /**
+     * Function takes in each hand and the Deck that you are currently on and formats the series
+     * of cards into a workout routine via card color, value, and special type.
+     * @param H
+     * @param D
+     */
     void FormatCardForWorkout(ArrayList<Card> H, Deck D)
     {
         int RepsSitUps = 0;
@@ -293,6 +302,11 @@ class Game
         
     }
     
+     /**
+     * Function globally keeps track of every Rep performed, every skipped rep, and the max reps
+     * performed in a single set throughout the entire game
+     * @param Stats
+     */
     void UpdateStatsTable(int[] Stats)
     {
         StatsWorkout[0] += Stats[0];
@@ -305,7 +319,12 @@ class Game
         
     }
     
-    
+     /**
+     * Function displays the stats of game, called at the end of the game. Takes in two
+     * Arrays that both have data pertaining to total stats
+     * @param TotalStats
+     * @param IndStats
+     */
     void DisplayStatData(int[] TotalStats, int[] IndStats, int[] skipped)
     {
     	html.setExerciseHeading();
@@ -321,13 +340,16 @@ class Game
         html.setExerciseTotal(IndStats[1], skipped[1], "Situps");
         System.out.println("Total Squats - " + IndStats[2]);
         html.setExerciseTotal(IndStats[2], skipped[2], "Squats");
-        System.out.println("Total Lounges - " + IndStats[3]);
+        System.out.println("Total Lunges - " + IndStats[3]);
         html.setExerciseTotal(IndStats[3], skipped[3], "Lunges");
         System.out.println("Total Burpees - " + IndStats[4] + "\n");
         html.setExerciseTotal(IndStats[4], 0 , "Burpees");
     }
             
-    
+      /**
+     * Sorting method that groups a set of cards from hand H, into separate arrayList via color
+     * @param H
+     */
     void SortingHand(ArrayList<Card> H)
     {
         ArrayList<Card> Wild = new ArrayList<Card>();
@@ -401,8 +423,12 @@ class Game
         
     }
     
-    
-    
+     /**
+     * Sorting method that takes in a set of cards, already sorted by color, and sorts them via value that they hold
+     * and returns the sorted list from smallest to largest.
+     * @param HandCol
+     * @return
+     */
     ArrayList<Card> SortByRank(ArrayList<Card> HandCol)
     {
         for(int j = 0; j < HandCol.size()-1; j++)
@@ -421,6 +447,16 @@ class Game
         return HandCol;
     }
     
+    /**
+     * Function takes in all the reps done per exercise in a given hand, and finds which one
+     * was done the most. Essentially, finds the largest value passed in.
+     * @param Push
+     * @param Sit
+     * @param L
+     * @param Sq
+     * @param B
+     * @return
+     */
     int GetMaxReps(int Push, int Sit, int L, int Sq, int B)
     {
         

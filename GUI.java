@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs2365_project2;
 
-/**
- *
- * @author jacob
- */
+/** GUI for setting up the decks
+ * @author Chase Willis
+ * @version 1.0
+ * @return The number of Decks used, if the decks are shuffled together
+ *         or apart, and to include action cards or not.
+*/
 public class GUI extends javax.swing.JFrame {
 
     /**
